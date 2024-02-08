@@ -36,6 +36,22 @@ class TestBaseModel(unittest.TestCase):
             self.base_model.updated_at.isoformat()
         )
 
+    def test_init_with_kwargs(self):
+        kwargs = {
+            'id': '123',
+            'created_at': '2022-01-01T12:00:00.000000',
+            'updated_at': '2022-01-02T12:00:00.000000',
+            'name': 'Test Model',
+            'value': 10
+        }
+        model = BaseModel(**kwargs)
+        
+        self.assertEqual(model.id, '123')
+        self.assertEqual(model.name, 'Test Model')
+        self.assertEqual(model.value, 10)
+        self.assertEqual(str(model.created_at), '2022-01-01 12:00:00')
+        self.assertEqual(str(model.updated_at), '2022-01-02 12:00:00')
+
     def tearDown(self):
         del self.base_model
 
