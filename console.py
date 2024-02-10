@@ -5,13 +5,13 @@ import sys
 import importlib
 from models.engine import storage
 
+
 class HBNBCommand(cmd.Cmd):
     intro = "Welcome to the AirBnB. Type 'help' to list available commands."
     prompt = "(hbnb) "
 
     def do_quit(self, args):
         """Quit command and exit the program
-        
         """
         return True
 
@@ -23,7 +23,6 @@ class HBNBCommand(cmd.Cmd):
         """Override emptyline to display only the prompt"""
         pass
 
-    
     def do_create(self, args):
         """Create a new instance of BaseModel, save it, and print the id"""
         if not args:
@@ -31,21 +30,19 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_name = args.split()[0]
-        classes = list({type(value).__name__ for value in storage.all().values()})
+        classes = {type(value).__name__ for value in storage.all().values()}
         if class_name not in classes:
             print("** class doesn't exist **")
             return
 
-        package_name = 'models'
-        module_name = 'base_model'
-        module = importlib.import_module('.' + module_name, package=package_name)
+        module_name = storage.modules[class_name]
+        module = importlib.import_module('.' + module_name, package='models')
         class_ = getattr(module, class_name)
 
         obj = class_()
         obj.save()
         print(obj.id)
 
-    
     def do_show(self, args):
         """Print the string representation of an instance"""
         if not args:
@@ -54,11 +51,10 @@ class HBNBCommand(cmd.Cmd):
 
         args_list = args.split()
         class_name = args_list[0]
-        classes = list({type(value).__name__ for value in storage.all().values()})
+        classes = {type(value).__name__ for value in storage.all().values()}
         if class_name not in classes:
             print("** class doesn't exist **")
             return
-
 
         if len(args_list) < 2:
             print("** instance id missing **")
@@ -81,7 +77,7 @@ class HBNBCommand(cmd.Cmd):
 
         args_list = args.split()
         class_name = args_list[0]
-        classes = list({type(value).__name__ for value in storage.all().values()})
+        classes = {type(value).__name__ for value in storage.all().values()}
         if class_name not in classes:
             print("** class doesn't exist **")
             return
@@ -100,7 +96,6 @@ class HBNBCommand(cmd.Cmd):
         del objects[key]
         storage.save()
 
-    
     def do_all(self, args):
         """Print all string representations of instances"""
         objects = storage.all()
@@ -111,13 +106,16 @@ class HBNBCommand(cmd.Cmd):
 
         args_list = args.split()
         class_name = args_list[0]
-        classes = list({type(value).__name__ for value in storage.all().values()})
+        classes = {type(value).__name__ for value in storage.all().values()}
         if class_name not in classes:
             print("** class doesn't exist **")
             return
 
-        print([str(obj) for obj in objects.values() if type(obj).__name__ == class_name])
-
+        class_objects = [
+            str(obj) for obj in objects.values()
+            if type(obj).__name__ == class_name
+        ]
+        print(class_objects)
 
     def do_update(self, args):
         """Update an instance based on the class name and id"""
@@ -127,7 +125,7 @@ class HBNBCommand(cmd.Cmd):
 
         args_list = args.split()
         class_name = args_list[0]
-        classes = list({type(value).__name__ for value in storage.all().values()})
+        classes = {type(value).__name__ for value in storage.all().values()}
         if class_name not in classes:
             print("** class doesn't exist **")
             return
