@@ -45,7 +45,6 @@ class TestBaseModel(unittest.TestCase):
             'value': 10
         }
         model = BaseModel(**kwargs)
-        
         self.assertEqual(model.id, '123')
         self.assertEqual(model.name, 'Test Model')
         self.assertEqual(model.value, 10)
