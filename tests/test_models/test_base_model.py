@@ -44,7 +44,11 @@ class TestBaseModel(unittest.TestCase):
             'name': 'Test Model',
             'value': 10
         }
+<<<<<<< HEAD
         model = BaseModel(**kwargs) 
+=======
+        model = BaseModel(**kwargs)
+>>>>>>> b63a81e9a4422163977621f10b511720e4ac1c0b
         self.assertEqual(model.id, '123')
         self.assertEqual(model.name, 'Test Model')
         self.assertEqual(model.value, 10)
