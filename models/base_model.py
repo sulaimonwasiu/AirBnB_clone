@@ -2,7 +2,7 @@
 
 import uuid
 from datetime import datetime
-
+from models.engine import storage
 
 class BaseModel:
     """Base Model
@@ -18,10 +18,12 @@ class BaseModel:
                     setattr(self, key, value)
                 else:
                     setattr(self, key, value)
+            storage.new(self)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+            storage.new(self)
 
     def __str__(self):
         class_name = self.__class__.__name__
@@ -29,6 +31,7 @@ class BaseModel:
 
     def save(self):
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         obj_dict = self.__dict__.copy()

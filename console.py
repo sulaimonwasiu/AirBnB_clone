@@ -4,17 +4,18 @@ import cmd
 import sys
 
 
-class AirBnB(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     intro = "Welcome to the AirBnB. Type 'help' to list available commands."
     prompt = "(hbnb) "
 
     def do_quit(self, args):
-        """Quit the Address Book"""
+        """Quit command and exit the program
+        
+        """
         return True
 
     def do_EOF(self, args):
         """Handle the End-of-File condition"""
-        #print("Goodbye!")
         return True
 
     def emptyline(self):
@@ -26,7 +27,7 @@ def run_console():
     """
     Run the console: command line
     """
-    console = AirBnB()
+    console = HBNBCommand()
 
     if not sys.stdin.isatty():
         print(console.prompt + "\n", end='')
