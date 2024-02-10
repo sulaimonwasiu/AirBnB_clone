@@ -30,20 +30,10 @@ class FileStorage:
             with open(self.__file_path, 'r') as file:
                 data = json.load(file)
                 for key, obj_dict in data.items():
-                    #print(key)
                     class_name, obj_id = key.split('.')
-                    #module = __import__('models.' + class_name, fromlist=[class_name])
-                    #print(module)
-                    #module = __import__('models.base_model' , fromlist=[class_name])
-                    #print(module)
-                    #module = importlib.import_module('models.' + class_name)
-                    #print(module.__dict__)
-                    #print("I am here after debugging")
                     package_name = 'models'
                     module_name = 'base_model'
                     module = importlib.import_module('.' + module_name, package=package_name)
-                    print(module)
-                    print(class_name)
                     class_ = getattr(module, class_name)
 
                     obj = class_(**obj_dict)
