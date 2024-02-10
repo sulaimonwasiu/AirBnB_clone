@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""The main console program
+"""
+
 import json
 import cmd
 import sys
