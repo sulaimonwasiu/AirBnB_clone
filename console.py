@@ -157,11 +157,28 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, attribute_name, attribute_value)
         obj.save()
 
+    def do_count(self, class_name):
+        """Print the number of instances of the specified class"""
+        objects = storage.all()
+
+        if class_name not in storage.modules.keys():
+            print("** class doesn't exist **")
+            return
+
+        class_count = sum(
+            1 for obj in objects.values()
+            if type(obj).__name__ == class_name
+        )
+        print(class_count)
+
     def default(self, line):
         """Handle arbitrary commands"""
         if line.endswith('.all()'):
-            class_name = line[:-6]  # Remove ".all()" from the end of the line
+            class_name = line[:-6]
             self.do_all(class_name)
+        elif line.endswith('.count()'):
+            class_name = line[:-8]
+            self.do_count(class_name)
         else:
             print("Command not recognized.")
 
