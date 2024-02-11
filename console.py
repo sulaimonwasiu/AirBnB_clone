@@ -157,10 +157,13 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, attribute_name, attribute_value)
         obj.save()
 
-    def do_User(self, arg):
-        print(arg)
-        if arg == ".all()":
-            self.do_all("User")
+    def default(self, line):
+        """Handle arbitrary commands"""
+        if line.endswith('.all()'):
+            class_name = line[:-6]  # Remove ".all()" from the end of the line
+            self.do_all(class_name)
+        else:
+            print("Command not recognized.")
 
 
 if __name__ == '__main__':
