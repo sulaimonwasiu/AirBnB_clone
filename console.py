@@ -2,11 +2,10 @@
 """The main console program
 """
 
-import json
 import cmd
 import sys
 import importlib
-from models.engine import storage
+from models import *
 
 
 class HBNBCommand(cmd.Cmd):
