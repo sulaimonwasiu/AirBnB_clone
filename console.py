@@ -32,7 +32,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_name = args.split()[0]
-        classes = {type(value).__name__ for value in storage.all().values()}
+        classes = storage.modules.keys()
         if class_name not in classes:
             print("** class doesn't exist **")
             return
