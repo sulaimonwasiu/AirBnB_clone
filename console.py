@@ -157,6 +157,11 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, attribute_name, attribute_value)
         obj.save()
 
+    def do_User(self, arg):
+        print(arg)
+        if arg == ".all()":
+            self.do_all("User")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
