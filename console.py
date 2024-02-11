@@ -190,6 +190,15 @@ class HBNBCommand(cmd.Cmd):
                 class_name = token[0].strip()
                 obj_id = args_list[1].strip()
                 self.do_show(f"{class_name} {obj_id}")
+        elif token[1].startswith('destroy(') and token[1].endswith(')'):
+            cmd_args = token[1][:-1]
+            args_list = re.split(r'[()]', cmd_args)
+            if len(args_list) != 2:
+                print("Invalid arguments. Usage: <class name>.destroy(<id>)")
+            else:
+                class_name = token[0].strip()
+                obj_id = args_list[1].strip()
+                self.do_destroy(f"{class_name} {obj_id}")
         else:
             print("Command not recognized.")
 
