@@ -199,6 +199,18 @@ class HBNBCommand(cmd.Cmd):
                 class_name = token[0].strip()
                 obj_id = args_list[1].strip()
                 self.do_destroy(f"{class_name} {obj_id}")
+        elif token[1].startswith('update(') and token[1].endswith(')'):
+            cmd_args = token[1][:-1]
+            args_list = re.split(r'[(,)]', cmd_args)
+            print(args_list)
+            if len(args_list) != 4:
+                print("Invalid arguments. Usage: <class name>.destroy(<id>)")
+            else:
+                class_name = token[0].strip()
+                obj_id = args_list[1].strip()
+                name = args_list[2].strip()
+                value = args_list[3].strip()
+                self.do_update(f"{class_name} {obj_id} {name} {value}")
         else:
             print("Command not recognized.")
 
