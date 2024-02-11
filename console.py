@@ -3,6 +3,7 @@
 """
 
 import cmd
+import re
 import sys
 import importlib
 from models import *
@@ -173,12 +174,22 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         """Handle arbitrary commands"""
+        token = line.split(".")
         if line.endswith('.all()'):
             class_name = line[:-6]
             self.do_all(class_name)
         elif line.endswith('.count()'):
             class_name = line[:-8]
             self.do_count(class_name)
+        elif token[1].startswith('show(') and token[1].endswith(')'):
+            cmd_args = token[1][:-1]
+            args_list = re.split(r'[()]', cmd_args)
+            if len(args_list) != 2:
+                print("Invalid arguments. Usage: <class name>.show(<id>)")
+            else:
+                class_name = token[0].strip()
+                obj_id = args_list[1].strip()
+                self.do_show(f"{class_name} {obj_id}")
         else:
             print("Command not recognized.")
 
