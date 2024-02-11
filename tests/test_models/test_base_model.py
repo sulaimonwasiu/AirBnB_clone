@@ -1,27 +1,34 @@
+#!/usr/bin/python3
 import unittest
 from datetime import datetime
-from models import *
+from models.base_model import BaseModel
 
 
-class Test_BaseModel(unittest.TestCase):
-    """
-    Test the base model class
-    """
-
+class TestBaseModel(unittest.TestCase):
+    """ test model: base_model  """
     def setUp(self):
-        self.model1 = BaseModel()
+        """ standard setUp() """
+        self.model = BaseModel()
 
-        test_args = self.model1.to_dict()
-        self.model2 = BaseModel(**test_args)
-        print(self.model1.id)
-        print(self.model2.id)
+    def test_name_number(self):
+        """ test name and number """
+        self.model.name = "my_school"
+        self.model.my_number = 89
+        self.assertEqual(self.model.name, "my_school")
+        self.assertEqual(self.model.my_number, 89)
 
-    def test_instantiation(self):
-        self.assertIsInstance(self.model1, BaseModel)
-        self.assertTrue(hasattr(self.model1, "created_at"))
-        self.assertTrue(hasattr(self.model1, "id"))
-        self.assertTrue(hasattr(self.model1, "updated_at"))
-        self.assertDictEqual(self.model1.to_dict(), self.model2.to_dict())
+    def test_public_attr(self):
+        """ id (uuid), created_at (datetime), updated_at (datetime) """
+        self.assertEqual(self.model.__class__.__name__, "BaseModel")
+        self.assertFalse(hasattr(self.model, "name"))
+        self.assertFalse(hasattr(self.model, "my_number"))
+        self.assertTrue(hasattr(self.model, "id"))
+        self.assertTrue(hasattr(self.model, "created_at"))
+        self.assertTrue(hasattr(self.model, "updated_at"))
+
+    def test_save(self):
+        """ save  """
+        self.model.save()
 
 
 if __name__ == "__main__":
