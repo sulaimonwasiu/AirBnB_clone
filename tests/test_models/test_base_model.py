@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Test Class
+"""Unittests for the base class
 """
 
 import sys
@@ -10,7 +10,8 @@ from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
-
+    """Test for the base class
+    """
     def setUp(self):
         self.base_model = BaseModel()
 
