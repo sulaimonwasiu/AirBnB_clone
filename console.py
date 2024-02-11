@@ -158,20 +158,5 @@ class HBNBCommand(cmd.Cmd):
         obj.save()
 
 
-def run_console():
-    """
-    Run the console: command line
-    """
-    console = HBNBCommand()
-
-    if not sys.stdin.isatty():
-        print(console.prompt + "\n", end='')
-        line = sys.stdin.readline().rstrip('\n')
-        console.onecmd(line)
-        print(console.prompt + "\n", end='')
-    else:
-        console.cmdloop()
-
-
 if __name__ == '__main__':
-    run_console()
+    HBNBCommand().cmdloop()
