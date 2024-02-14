@@ -204,7 +204,7 @@ class HBNBCommand(cmd.Cmd):
             args_list = re.split(r'[(,)]', cmd_args)
             print(args_list)
             if len(args_list) != 4:
-                print("Invalid arguments. Usage: <class name>.destroy(<id>)")
+                print("Invalid arguments")
             else:
                 class_name = token[0].strip()
                 obj_id = args_list[1].strip()
